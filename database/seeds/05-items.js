@@ -3,130 +3,130 @@ exports.seed = function(knex) {
     {
       id: 1,
       event_id: 1,
-      item: "picnic chairs",
+      name: "picnic chairs",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 2,
       event_id: 1,
-      item: "picnic tables",
+      name: "picnic tables",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 3,
       event_id: 1,
-      item: "food",
+      name: "food",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 4,
       event_id: 1,
-      item: "drinks",
+      name: "drinks",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 5,
       event_id: 1,
-      item: "entertainment",
+      name: "entertainment",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 6,
       event_id: 2,
-      item: "napkins",
+      name: "napkins",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 7,
       event_id: 2,
-      item: "taco trunk",
+      name: "taco trunk",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 8,
       event_id: 2,
-      item: "soda",
+      name: "soda",
       quantity: null,
-      cost: 0,
-      completed: false,
+      cost: 1,
+      completed: false
     },
     {
       id: 9,
       event_id: 3,
-      item: "balloons",
+      name: "balloons",
       quantity: null,
-      cost: 0,
-      completed: false,
+      cost: 2,
+      completed: false
     },
     {
       id: 10,
       event_id: 3,
-      item: "catering",
+      name: "catering",
       quantity: null,
-      cost: 0,
-      completed: false,
+      cost: 300,
+      completed: false
     },
     {
       id: 11,
       event_id: 4,
-      item: "stuffed animals",
+      name: "stuffed animals",
       quantity: null,
-      cost: 0,
-      completed: false,
+      cost: 5,
+      completed: false
     },
     {
       id: 12,
       event_id: 4,
-      item: "food",
+      name: "food",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 13,
       event_id: 5,
-      item: "water balloons",
+      name: "water balloons",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 14,
       event_id: 5,
-      item: "toy water guns",
+      name: "toy water guns",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 15,
       event_id: 6,
-      item: "gift bags",
+      name: "gift bags",
       quantity: null,
       cost: 0,
-      completed: false,
+      completed: false
     },
     {
       id: 16,
       event_id: 6,
-      item: "catering",
+      name: "catering",
       quantity: null,
       cost: 0,
-      completed: false,
-    },
+      completed: false
+    }
   ]);
 };
