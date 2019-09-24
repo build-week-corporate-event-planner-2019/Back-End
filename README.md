@@ -161,11 +161,11 @@ Example Request Body:
 
 ```javascript
 {
-  "email": "test233@example.com",
-  "password": "test",
-  "name": "Tester Three",
-  "company": "Testers Inc",
-  "role": "tester"
+  "email": "test233@example.com", // required
+  "password": "test", // required
+  "name": "Tester Three", // required
+  "company": "Testers Inc", // required
+  "role": "tester" // required
 }
 ```
 
@@ -201,8 +201,8 @@ Example Request Body:
 
 ```javascript
 {
-  "email": "test233@example.com",
-  "password": "test",
+  "email": "test233@example.com", // required
+  "password": "test", // required
 }
 ```
 
@@ -251,11 +251,11 @@ Example Request Body:
 
 ```javascript
 {
-  "email": "test233@example.com",
-  "password": "test",
-  "name": "Tester Three",
-  "company": "Testers Inc",
-  "role": "tester"
+  "email": "test233@example.com", // required
+  "password": "test", // required
+  "name": "Tester Three", // required
+  "company": "Testers Inc", // required
+  "role": "tester" // required
 }
 ```
 
@@ -414,7 +414,7 @@ https://corporate-event-planner-be.herokuapp.com/api/events/:id
 ###### POST [ADD AN EVENT]
 
 ```
-https://corporate-event-planner-be.herokuapp.com/api/events/register
+https://corporate-event-planner-be.herokuapp.com/api/events
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -425,12 +425,12 @@ Example Request Body:
 
 ```javascript
 {
-  "user_id": 1,
-  "name": "Company party",
+  "user_id": 1, // required
+  "name": "Company party", // required
   "description": "A company-wide party",
-  "budget": "23230.00",
+  "budget": "23230.00", // required
   "location": "Building A, Room 232",
-  "start_date": "2019-01-21T00:00:00.000Z",
+  "start_date": "2019-01-21T00:00:00.000Z", // required
   "end_date": "2019-01-23T00:00:00.000Z"
 }
 ```
@@ -476,12 +476,12 @@ Example Request Body:
 
 ```javascript
 {
-  "user_id": 1,
-  "name": "Company party",
+  "user_id": 1, // required
+  "name": "Company party", // required
   "description": "A company-wide party",
-  "budget": "23230.00",
+  "budget": "23230.00", // required
   "location": "Building A, Room 232",
-  "start_date": "2019-01-21T00:00:00.000Z",
+  "start_date": "2019-01-21T00:00:00.000Z", // required
   "end_date": "2019-01-23T00:00:00.000Z"
 }
 ```
@@ -544,6 +544,214 @@ https://corporate-event-planner-be.herokuapp.com/api/events/:id
 ```javascript
 {
   "message": `Event with the id ${id} does not exist.`,
+  "err": err
+}
+```
+
+### Todos
+
+###### GET [ALL TODOS]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/todos
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :x:
+- Authorization gets validated over restricted middleware
+
+<span style="color: green">Get All Todos Response (200 OK)</span>:
+
+```javascript
+[
+  {
+    id: 1,
+    event_id: 1,
+    name: "Send out invites",
+    completed: false,
+  },
+  {
+    id: 2,
+    event_id: 1,
+    name: "Set up decorations",
+    completed: false,
+  },
+  {
+    id: 3,
+    event_id: 1,
+    name: "Find catering services",
+    completed: false,
+  },
+];
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting all todos.",
+  "err": err
+}
+```
+
+###### GET [TODO BY ID]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/todos/:id
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :x:
+- ID is defined over the used route at the end
+- Authorization gets validated over restricted middleware
+- TODO ID gets validated over validateTodoId middleware
+
+<span style="color: green">Get Todo By Id Response (200 OK)</span>:
+
+```javascript
+{
+  id: 1,
+  event_id: 1,
+  name: "Send out invites",
+  completed: false,
+}
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting todo by id.",
+  "err": err
+}
+```
+
+<span style="color: red">Event Not Found Response (404 NOT FOUND)</span>:
+
+```javascript
+{
+  "message": `Todo with the id ${id} does not exist.`,
+  "err": err
+}
+```
+
+###### POST [ADD A TODO]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/todos
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :heavy_check_mark:
+- TODO gets validated over validateTodo middleware
+
+Example Request Body:
+
+```javascript
+{
+  event_id: 1, // required
+  name: "Send out invites", // required
+  completed: false,
+}
+```
+
+<span style="color: green">Adding an Todo Response (201 CREATED)</span>:
+
+```javascript
+{
+  id: 8,
+  event_id: 1,
+  name: "Send out invites",
+  completed: false,
+}
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while adding a todo.",
+  "err": err
+}
+```
+
+###### PUT [UPDATE A TODO]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/todos/:id
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :heavy_check_mark:
+- ID is defined over the used route at the end
+- Authorization gets validated over restricted middleware
+- TODO ID gets validated over validateTodoId middleware
+- TODO gets validated over validateTodo middleware
+
+Example Request Body:
+
+```javascript
+{
+  event_id: 1, // required
+  name: "Send out invites", //required
+  completed: false,
+}
+```
+
+<span style="color: green">Updating a Todo Response (201 CREATED)</span>:
+
+```javascript
+{
+  id: 8,
+  event_id: 1,
+  name: "Send out invites",
+  completed: false,
+}
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while updating a todo.",
+  "err": err
+}
+```
+
+###### DELETE [TODO BY ID]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/todos/:id
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :x:
+- ID is defined over the used route at the end
+- Authorization gets validated over restricted middleware
+- TODO ID gets validated over validateTodoId middleware
+
+<span style="color: green">Delete Todo By Id Response (200 OK)</span>:
+
+```javascript
+{
+  message: `Todo with the id ${id} successfully deleted.`,
+}
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while deleting todo.",
+  "err": err
+}
+```
+
+<span style="color: red">Todo Not Found Response (404 NOT FOUND)</span>:
+
+```javascript
+{
+  "message": `Todo with the id ${id} does not exist.`,
   "err": err
 }
 ```
