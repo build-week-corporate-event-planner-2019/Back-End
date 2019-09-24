@@ -756,6 +756,230 @@ https://corporate-event-planner-be.herokuapp.com/api/todos/:id
 }
 ```
 
+### Items
+
+###### GET [ALL ITEMS]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/items
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :x:
+- Authorization gets validated over restricted middleware
+
+<span style="color: green">Get All Items Response (200 OK)</span>:
+
+```javascript
+[
+  {
+    id: 1,
+    event_id: 1,
+    name: "picnic chairs",
+    quantity: null,
+    cost: "0.00",
+    completed: false,
+  },
+  {
+    id: 2,
+    event_id: 1,
+    name: "picnic tables",
+    quantity: null,
+    cost: "0.00",
+    completed: false,
+  },
+  {
+    id: 3,
+    event_id: 1,
+    name: "food",
+    quantity: null,
+    cost: "0.00",
+    completed: false,
+  },
+];
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting all todos.",
+  "err": err
+}
+```
+
+###### GET [TODO BY ID]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/items/:id
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :x:
+- ID is defined over the used route at the end
+- Authorization gets validated over restricted middleware
+- ITEM ID gets validated over validateItemId middleware
+
+<span style="color: green">Get Item By Id Response (200 OK)</span>:
+
+```javascript
+{
+  id: 1,
+  event_id: 1,
+  name: "picnic chairs",
+  quantity: null,
+  cost: "0.00",
+  completed: false,
+},
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting item by id.",
+  "err": err
+}
+```
+
+<span style="color: red">Item Not Found Response (404 NOT FOUND)</span>:
+
+```javascript
+{
+  "message": `Item with the id ${id} does not exist.`,
+  "err": err
+}
+```
+
+###### POST [ADD AN ITEM]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/items
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :heavy_check_mark:
+- ITEM gets validated over validateItem middleware
+
+Example Request Body:
+
+```javascript
+{
+  event_id: 1, // required
+  name: "picnic chairs", // required
+  quantity: null,
+  cost: "0.00", // required
+  completed: false,
+},
+```
+
+<span style="color: green">Adding an Item Response (201 CREATED)</span>:
+
+```javascript
+{
+  id: 1,
+  event_id: 1,
+  name: "picnic chairs",
+  quantity: null,
+  cost: "0.00",
+  completed: false,
+},
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while adding an item.",
+  "err": err
+}
+```
+
+###### PUT [UPDATE A TODO]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/items/:id
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :heavy_check_mark:
+- ID is defined over the used route at the end
+- Authorization gets validated over restricted middleware
+- ITEM ID gets validated over validateItemId middleware
+- ITEM gets validated over validateItem middleware
+
+Example Request Body:
+
+```javascript
+{
+  event_id: 1, // required
+  name: "picnic chairs", // required
+  quantity: null,
+  cost: "0.00", // required
+  completed: false,
+},
+```
+
+<span style="color: green">Updating a Item Response (201 CREATED)</span>:
+
+```javascript
+{
+  id: 1,
+  event_id: 1,
+  name: "picnic chairs",
+  quantity: null,
+  cost: "0.00",
+  completed: false,
+},
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while updating an item.",
+  "err": err
+}
+```
+
+###### DELETE [Item BY ID]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/items/:id
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :x:
+- ID is defined over the used route at the end
+- Authorization gets validated over restricted middleware
+- ITEM ID gets validated over validateItemId middleware
+
+<span style="color: green">Delete Item By Id Response (200 OK)</span>:
+
+```javascript
+{
+  message: `Item with the id ${id} successfully deleted.`,
+}
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while deleting item.",
+  "err": err
+}
+```
+
+<span style="color: red">Item Not Found Response (404 NOT FOUND)</span>:
+
+```javascript
+{
+  "message": `Item with the id ${id} does not exist.`,
+  "err": err
+}
+```
+
 ## Project Requirements and Documentation
 
 - [Initial Project Description](https://airtable.com/shrXJLrenkHpSRWiV/tbln1vdyJbN0Nmte5/viwyGtoIo4bcAgYA1/reccKNI7YcY1wiEku?blocks=hide)
