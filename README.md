@@ -803,12 +803,12 @@ https://corporate-event-planner-be.herokuapp.com/api/items
 
 ```javascript
 {
-  "message": "Error occurred while getting all todos.",
+  "message": "Error occurred while getting all items.",
   "err": err
 }
 ```
 
-###### GET [TODO BY ID]
+###### GET [ITEM BY ID]
 
 ```
 https://corporate-event-planner-be.herokuapp.com/api/items/:id
@@ -895,7 +895,7 @@ Example Request Body:
 }
 ```
 
-###### PUT [UPDATE A TODO]
+###### PUT [UPDATE AN ITEM]
 
 ```
 https://corporate-event-planner-be.herokuapp.com/api/items/:id
@@ -942,7 +942,7 @@ Example Request Body:
 }
 ```
 
-###### DELETE [Item BY ID]
+###### DELETE [ITEM BY ID]
 
 ```
 https://corporate-event-planner-be.herokuapp.com/api/items/:id
@@ -976,6 +976,214 @@ https://corporate-event-planner-be.herokuapp.com/api/items/:id
 ```javascript
 {
   "message": `Item with the id ${id} does not exist.`,
+  "err": err
+}
+```
+
+### Vendors
+
+###### GET [ALL VENDORS]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/vendors
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :x:
+- Authorization gets validated over restricted middleware
+
+<span style="color: green">Get All Vendors Response (200 OK)</span>:
+
+```javascript
+[
+  {
+    id: 1,
+    name: "Tom's Chair Emporium",
+    notes: null,
+    event_id: 1,
+  },
+  {
+    id: 2,
+    name: "Bill's Tables",
+    notes: null,
+    event_id: 2,
+  },
+  {
+    id: 3,
+    name: "Mama's Kitchen",
+    notes: null,
+    event_id: 3,
+  },
+];
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting all vendors.",
+  "err": err
+}
+```
+
+###### GET [VENDOR BY ID]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/vendors/:id
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :x:
+- ID is defined over the used route at the end
+- Authorization gets validated over restricted middleware
+- VENDOR ID gets validated over validateVendorId middleware
+
+<span style="color: green">Get Vendor By Id Response (200 OK)</span>:
+
+```javascript
+{
+  id: 1,
+  name: "Tom's Chair Emporium",
+  notes: null,
+  event_id: 1,
+},
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting vendor by id.",
+  "err": err
+}
+```
+
+<span style="color: red">Vendor Not Found Response (404 NOT FOUND)</span>:
+
+```javascript
+{
+  "message": `Vendor with the id ${id} does not exist.`,
+  "err": err
+}
+```
+
+###### POST [ADD A VENDOR]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/vendors
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :heavy_check_mark:
+- VENDOR gets validated over validateVendor middleware
+
+Example Request Body:
+
+```javascript
+{
+  name: "Tom's Chair Emporium", // required
+  notes: null,
+  event_id: 1, // required
+},
+```
+
+<span style="color: green">Adding an Vendor Response (201 CREATED)</span>:
+
+```javascript
+{
+  id: 5,
+  name: "Tom's Chair Emporium",
+  notes: null,
+  event_id: 1,
+},
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while adding an item.",
+  "err": err
+}
+```
+
+###### PUT [UPDATE A VENDOR]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/vendors/:id
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :heavy_check_mark:
+- ID is defined over the used route at the end
+- Authorization gets validated over restricted middleware
+- VENDOR ID gets validated over validateVendorId middleware
+- VENDOR gets validated over validateVendor middleware
+
+Example Request Body:
+
+```javascript
+{
+  name: "Tom's Chair Emporium", // required
+  notes: null,
+  event_id: 1, // required
+},
+```
+
+<span style="color: green">Updating a Vendor Response (201 CREATED)</span>:
+
+```javascript
+{
+  id: 5,
+  name: "Tom's Chair Emporium",
+  notes: null,
+  event_id: 1,
+},
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while updating a vendor.",
+  "err": err
+}
+```
+
+###### DELETE [VENDOR BY ID]
+
+```
+https://corporate-event-planner-be.herokuapp.com/api/vendors/:id
+```
+
+- JWT protected (header) :heavy_check_mark:
+- payload (body) :x:
+- ID is defined over the used route at the end
+- Authorization gets validated over restricted middleware
+- VENDOR ID gets validated over validateVendorId middleware
+
+<span style="color: green">Delete Vendor By Id Response (200 OK)</span>:
+
+```javascript
+{
+  message: `Vendor with the id ${id} successfully deleted.`,
+}
+```
+
+<span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while deleting vendor.",
+  "err": err
+}
+```
+
+<span style="color: red">Vendor Not Found Response (404 NOT FOUND)</span>:
+
+```javascript
+{
+  "message": `Vendor with the id ${id} does not exist.`,
   "err": err
 }
 ```
