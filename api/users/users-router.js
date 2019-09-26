@@ -36,7 +36,7 @@ router.post(
 );
 
 // POST /api/users/login
-router.post("/login", (req, res) => {
+router.post("/login", Validate.validateLogin, (req, res) => {
   let { email, password } = req.body;
 
   Users.getUsersBy({ email })
