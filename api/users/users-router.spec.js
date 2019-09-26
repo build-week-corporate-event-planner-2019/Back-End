@@ -1,5 +1,6 @@
 const request = require("supertest");
 
+const db = require("../../database/db-config.js");
 const prepTestDB = require("../../helpers/prepTestDB.js");
 const Users = require("./users-model.js");
 
@@ -9,7 +10,7 @@ jest.mock("../middleware/auth-middleware.js");
 // let token;
 // const user = { email: "testing", password: "******" };
 
-beforeEach(prepTestDB);
+beforeEach(() => db.seed.run());
 
 // beforeAll(done => {
 //   request(server)
@@ -51,6 +52,13 @@ describe("users-router.js", () => {
       expect(res.status).toBe(200);
     });
 
+    it("responds with 404 NOT FOUND", async () => {
+      const res = await request(server).get("/api/users/14");
+      // .set("Authorization", `${token}`);
+
+      expect(res.status).toBe(404);
+    });
+
     it("get user by id 1", async () => {
       const res = await request(server).get("/api/users/1");
       // .set("Authorization", `${token}`);
@@ -59,47 +67,100 @@ describe("users-router.js", () => {
         email: "test@example.com",
         id: 1,
         name: "John Smith",
-        role: "tester"
+        role: "tester",
       });
     });
   });
 
-  describe("POST /api/users/", () => {
-    it("responds with 400 BAD REQUEST", async () => {
+  describe("POST /api/users/register", () => {
+    it("unique email validation working, responds with 400 BAD REQUEST", async () => {
       const newUser = {
         company: "Tester Inc.",
         email: "test@example.com",
         password: "test",
         name: "John Smith",
-        role: "tester"
+        role: "tester",
       };
 
       const res = await request(server)
         .post("/api/users/register")
         .send(newUser);
+
       // .set("Authorization", `${token}`);
       // console.log(res);
       // await request(server).get("/api/users")
       expect(res.status).toBe(400);
     });
 
-    it("responds with 201 CREATED", async () => {
+    it("required user data validation working, responds with 400 BAD REQUEST", async () => {
       const newUser = {
         company: "Tester Inc.",
-        email: "test1@example.com",
+        email: "test@example.com",
         password: "test",
-        name: "John Smith",
-        role: "tester"
+        role: "tester",
       };
 
-      const res = await Users.addUser(newUser);
-      // const res = await request(server)
-      //   .post("/api/users/register")
-      //   .send(newUser);
+      const res = await request(server)
+        .post("/api/users/register")
+        .send(newUser);
+
       // .set("Authorization", `${token}`);
-      console.log(res);
+      // console.log(res);
       // await request(server).get("/api/users")
+      expect(res.status).toBe(400);
+    });
+
+    it("adds a user to the db", async () => {
+      const newUser = {
+        company: "Tester Inc.",
+        email: "test123@example.com",
+        password: "test",
+        name: "John Smith",
+        role: "tester",
+      };
+
+      let accs = await db("users");
+      expect(accs).toHaveLength(2);
+
+      await request(server) // tests the Users endpoint
+        .post("/api/users/register")
+        .send(newUser);
+
+      accs = await db("users");
+      expect(accs).toHaveLength(3);
+      // .set("Authorization", `${token}`);
+      // console.log(res.body);
       // expect(res.status).toBe(201);
+    });
+  });
+
+  describe("POST /api/users/login", () => {
+    // it("login body validation working, responds with 400 BAD REQUEST", async () => {
+    //   const newUser = {
+    //     email: "test@example.com",
+    //   };
+
+    //   const res = await request(server)
+    //     .post("/api/users/login")
+    //     .send(newUser);
+
+    //   // .set("Authorization", `${token}`);
+    //   // console.log(res);
+    //   // await request(server).get("/api/users")
+    //   expect(res.status).toBe(400);
+    // });
+
+    it("returns a 200 OK", async () => {
+      const newUser = {
+        email: "test@example.com",
+        password: "test",
+      };
+
+      const res = await request(server) // tests the Users endpoint
+        .post("/api/users/login")
+        .send(newUser);
+      console.log(res.body);
+      expect(res.status).toBe(200);
     });
   });
 });
