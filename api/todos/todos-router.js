@@ -1,6 +1,7 @@
 const express = require("express");
 
 const Todos = require("./todos-model.js");
+const Validate = require("../middleware/validation-middleware.js");
 
 const router = express.Router();
 
@@ -49,7 +50,7 @@ router.get("/:id", (req, res) => {
 });
 
 // POST /api/todos
-router.post("/", (req, res) => {
+router.post("/", Validate.validateTodo, (req, res) => {
   const todo = req.body;
 
   Todos.addTodo(todo)
@@ -69,28 +70,33 @@ router.post("/", (req, res) => {
 });
 
 // PUT /api/todos/:id
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const changes = req.body;
+router.put(
+  "/:id",
+  Validate.validateTodoId,
+  Validate.validateTodo,
+  (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
 
-  Todos.updateTodo(changes, id)
-    .then(todo => {
-      let formattedTodo = {
-        ...todo,
-        completed: todo.completed ? true : false,
-      };
+    Todos.updateTodo(changes, id)
+      .then(todo => {
+        let formattedTodo = {
+          ...todo,
+          completed: todo.completed ? true : false,
+        };
 
-      res.status(200).json(formattedTodo);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ message: "Error occurred while updating todo.", err });
-    });
-});
+        res.status(200).json(formattedTodo);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ message: "Error occurred while updating todo.", err });
+      });
+  },
+);
 
 // DELETE /api/todos/:id
-router.delete("/:id", (req, res) => {
+router.delete("/:id", Validate.validateTodoId, (req, res) => {
   const { id } = req.params;
 
   Todos.deleteTodo(id)

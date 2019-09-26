@@ -1,6 +1,7 @@
 const express = require("express");
 
 const Vendors = require("./vendors-model.js");
+const Validate = require("../middleware/validation-middleware.js");
 
 const router = express.Router();
 
@@ -37,7 +38,7 @@ router.get("/:id", (req, res) => {
 });
 
 // POST /api/vendors
-router.post("/", (req, res) => {
+router.post("/", Validate.validateVendor, (req, res) => {
   const vendor = req.body;
 
   Vendors.addVendor(vendor)
@@ -52,23 +53,28 @@ router.post("/", (req, res) => {
 });
 
 // PUT /api/vendors/:id
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const changes = req.body;
+router.put(
+  "/:id",
+  Validate.validateVendorId,
+  Validate.validateVendor,
+  (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
 
-  Vendors.updateVendor(changes, id)
-    .then(vendor => {
-      res.status(200).json(vendor);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ message: "Error occurred while updating vendor.", err });
-    });
-});
+    Vendors.updateVendor(changes, id)
+      .then(vendor => {
+        res.status(200).json(vendor);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ message: "Error occurred while updating vendor.", err });
+      });
+  },
+);
 
 // DELETE /api/vendors/:id
-router.delete("/:id", (req, res) => {
+router.delete("/:id", Validate.validateVendorId, (req, res) => {
   const { id } = req.params;
 
   Vendors.deleteVendor(id)

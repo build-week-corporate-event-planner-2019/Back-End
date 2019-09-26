@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
 });
 
 // GET /api/events/:id
-router.get("/:id", Validate.validateEventId, (req, res) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
 
   Events.getEventById(id)

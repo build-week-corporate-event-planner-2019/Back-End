@@ -50,7 +50,7 @@ router.get("/:id", (req, res) => {
 });
 
 // POST /api/items/
-router.post("/", (req, res) => {
+router.post("/", Validate.validateItem, (req, res) => {
   const item = req.body;
 
   Items.addItem(item)
@@ -70,28 +70,33 @@ router.post("/", (req, res) => {
 });
 
 // PUT /api/items/:id
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const changes = req.body;
+router.put(
+  "/:id",
+  Validate.validateItemId,
+  Validate.validateItem,
+  (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
 
-  Items.updateItem(changes, id)
-    .then(item => {
-      let formattedItem = {
-        ...item,
-        completed: item.completed ? true : false,
-      };
+    Items.updateItem(changes, id)
+      .then(item => {
+        let formattedItem = {
+          ...item,
+          completed: item.completed ? true : false,
+        };
 
-      res.status(200).json(formattedItem);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ message: "Error occurred while updating item.", err });
-    });
-});
+        res.status(200).json(formattedItem);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ message: "Error occurred while updating item.", err });
+      });
+  },
+);
 
 // DELETE /api/items/:id
-router.delete("/:id", (req, res) => {
+router.delete("/:id", Validate.validateItemId, (req, res) => {
   const { id } = req.params;
 
   Items.deleteItem(id)
