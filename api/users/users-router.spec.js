@@ -122,7 +122,7 @@ describe("users-router.js", () => {
       let accs = await db("users");
       expect(accs).toHaveLength(2);
 
-      await request(server) // tests the Users endpoint
+      const res = await request(server) // tests the Users endpoint
         .post("/api/users/register")
         .send(newUser);
 
@@ -135,20 +135,20 @@ describe("users-router.js", () => {
   });
 
   describe("POST /api/users/login", () => {
-    // it("login body validation working, responds with 400 BAD REQUEST", async () => {
-    //   const newUser = {
-    //     email: "test@example.com",
-    //   };
+    it("login body validation working, responds with 400 BAD REQUEST", async () => {
+      const newUser = {
+        email: "test@example.com",
+      };
 
-    //   const res = await request(server)
-    //     .post("/api/users/login")
-    //     .send(newUser);
+      const res = await request(server)
+        .post("/api/users/login")
+        .send(newUser);
 
-    //   // .set("Authorization", `${token}`);
-    //   // console.log(res);
-    //   // await request(server).get("/api/users")
-    //   expect(res.status).toBe(400);
-    // });
+      // .set("Authorization", `${token}`);
+      // console.log(res);
+      // await request(server).get("/api/users")
+      expect(res.status).toBe(400);
+    });
 
     it("returns a 200 OK", async () => {
       const newUser = {

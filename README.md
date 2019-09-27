@@ -1198,6 +1198,175 @@ https://corporate-event-planner-be.herokuapp.com/api/vendors/:id
 }
 ```
 
+### Validation Middleware
+
+##### Users
+
+<span style="color: red">Validate Unique Email Response (400 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": `Account with ${email} already exists. Please choose another e-mail.`;
+}
+```
+
+<span style="color: red">Validate User Body Response (400 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": "A new user must have only an email, password, name, company, and role.";
+}
+```
+
+<span style="color: red">Validate User Body Response (400 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": "Missing email, password, name, company, or role.";
+}
+```
+
+<span style="color: red">Validate User Id Response (404 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": `User with the id ${id} does not exist.`;
+}
+```
+
+<span style="color: red">Validate User Id Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting a user by id.",
+  "err": err
+}
+```
+
+<span style="color: red">Validate Login Body Response (400 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": "Missing email or password."
+}
+```
+
+##### Events
+
+<span style="color: red">Validate Event Body Response (400 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": "Missing user_id, name, budget, or start_date."
+}
+```
+
+<span style="color: red">Validate Event Id Response (404 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": `Event with the id ${id} does not exist.`;
+}
+```
+
+<span style="color: red">Validate Event Id Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting an event by id.",
+  "err": err
+}
+```
+
+##### Todos
+
+<span style="color: red">Validate Todo Body Response (400 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": "Missing event_id or name."
+}
+```
+
+<span style="color: red">Validate Todo Id Response (404 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": `Todo with the id ${id} does not exist.`;
+}
+```
+
+<span style="color: red">Validate Todo Id Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting a todo by id.",
+  "err": err
+}
+```
+
+##### Items
+
+<span style="color: red">Validate Item Body Response (400 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": "Missing event_id, name, or cost."
+}
+```
+
+<span style="color: red">Validate Item Id Response (404 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": `Item with the id ${id} does not exist.`;
+}
+```
+
+<span style="color: red">Validate Item Id Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting a item by id.",
+  "err": err
+}
+```
+
+##### Vendors
+
+<span style="color: red">Validate Vendor Body Response (400 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": "Missing event_id or name."
+}
+```
+
+<span style="color: red">Validate Vendor Id Response (404 BAD REQUEST)</span>:
+
+```javascript
+{
+  "message": `Vendor with the id ${id} does not exist.`;
+}
+```
+
+<span style="color: red">Validate Vendor Id Response (500 SERVER ERROR)</span>:
+
+```javascript
+{
+  "message": "Error occurred while getting a vendor by id.",
+  "err": err
+}
+```
+
+## Database Design and Schema
+
+<img width="800" height="500" src="./documentation/schema-simple.png" alt="Database design used for the project" />
+
+The database was built using the above schema. It was a simpler version that covers the product mvps. The design was broken up into 5 different tables: a `users`, an `events`, a `todos`, an `items`, and a `vendors` table.
+
+<img width="800" height="500" src="./documentation/schema-normalized.png" alt="Database design that would have been used given more time" />
+
 ## Project Requirements and Documentation
 
 - [Initial Project Description](https://airtable.com/shrXJLrenkHpSRWiV/tbln1vdyJbN0Nmte5/viwyGtoIo4bcAgYA1/reccKNI7YcY1wiEku?blocks=hide)
