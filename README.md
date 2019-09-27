@@ -339,19 +339,29 @@ https://corporate-event-planner-be.herokuapp.com/api/events
     user_id: 1,
     name: "Company party",
     description: "A company-wide party",
-    budget: "23230.00",
+    budget: 23230,
     location: "Building A, Room 232",
-    start_date: "2019-01-21T00:00:00.000Z",
-    end_date: "2019-01-23T00:00:00.000Z",
+    start_date: "2019-01-21",
+    end_date: "2019-01-23",
   },
   {
     id: 2,
     user_id: 1,
     name: "Company luncheon",
     description: "A company-wide lunch",
-    budget: "12320.00",
+    budget: 12320,
     location: "Courtyard near the lobby",
-    start_date: "2019-02-15T00:00:00.000Z",
+    start_date: "2019-02-15",
+    end_date: null,
+  },
+  {
+    id: 3,
+    user_id: 1,
+    name: "Surprise Birthday",
+    description: "A surprise birthday party for the ceo",
+    budget: 2210,
+    location: "Banquet room",
+    start_date: "2019-03-04",
     end_date: null,
   },
 ];
@@ -382,15 +392,15 @@ https://corporate-event-planner-be.herokuapp.com/api/events/:id
 
 ```javascript
 {
-  "id": 1,
-  "user_id": 1,
-  "name": "Company party",
-  "description": "A company-wide party",
-  "budget": "23230.00",
-  "location": "Building A, Room 232",
-  "start_date": "2019-01-21T00:00:00.000Z",
-  "end_date": "2019-01-23T00:00:00.000Z",
-}
+    id: 1,
+    user_id: 1,
+    name: "Company party",
+    description: "A company-wide party",
+    budget: 23230,
+    location: "Building A, Room 232",
+    start_date: "2019-01-21",
+    end_date: "2019-01-23",
+  },
 ```
 
 <span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
@@ -425,29 +435,29 @@ Example Request Body:
 
 ```javascript
 {
-  "user_id": 1, // required
-  "name": "Company party", // required
-  "description": "A company-wide party",
-  "budget": "23230.00", // required
-  "location": "Building A, Room 232",
-  "start_date": "2019-01-21T00:00:00.000Z", // required
-  "end_date": "2019-01-23T00:00:00.000Z"
-}
+  user_id: 1, // required
+  name: "Company party", // required
+  description: "A company-wide party",
+  budget: 23230, // required
+  location: "Building A, Room 232",
+  start_date: "2019-01-21", // required
+  end_date: "2019-01-23",
+},
 ```
 
 <span style="color: green">Adding an Event Response (201 CREATED)</span>:
 
 ```javascript
 {
-  "id": 7,
-  "user_id": 1,
-  "name": "Company party",
-  "description": "A company-wide party",
-  "budget": "23230.00",
-  "location": "Building A, Room 232",
-  "start_date": "2019-01-21T00:00:00.000Z",
-  "end_date": "2019-01-23T00:00:00.000Z"
-}
+  id: 7,
+  user_id: 1,
+  name: "Company party",
+  description: "A company-wide party",
+  budget: 23230,
+  location: "Building A, Room 232",
+  start_date: "2019-01-21",
+  end_date: "2019-01-23",
+},
 ```
 
 <span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
@@ -476,29 +486,29 @@ Example Request Body:
 
 ```javascript
 {
-  "user_id": 1, // required
-  "name": "Company party", // required
-  "description": "A company-wide party",
-  "budget": "23230.00", // required
-  "location": "Building A, Room 232",
-  "start_date": "2019-01-21T00:00:00.000Z", // required
-  "end_date": "2019-01-23T00:00:00.000Z"
-}
+  user_id: 1, // required
+  name: "Company party", // required
+  description: "A company-wide party",
+  budget: 23230, // required
+  location: "Building A, Room 232",
+  start_date: "2019-01-21", // required
+  end_date: "2019-01-23",
+},
 ```
 
 <span style="color: green">Updating an Event Response (201 CREATED)</span>:
 
 ```javascript
 {
-  "id": 7,
-  "user_id": 1,
-  "name": "Company party",
-  "description": "A company-wide party",
-  "budget": "23230.00",
-  "location": "Building A, Room 232",
-  "start_date": "2019-01-21T00:00:00.000Z",
-  "end_date": "2019-01-23T00:00:00.000Z"
-}
+  id: 7,
+  user_id: 1, // required
+  name: "Company party", // required
+  description: "A company-wide party",
+  budget: 23230, // required
+  location: "Building A, Room 232",
+  start_date: "2019-01-21", // required
+  end_date: "2019-01-23",
+},
 ```
 
 <span style="color: red">Server Error Response (500 SERVER ERROR)</span>:
